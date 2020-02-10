@@ -5,27 +5,137 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bistro Babushka</title>
-    <style>
-
-
-
-    </style>
 </head>
+
+<nav>
+    <h1>Alle</h1>
+    <button class="filter valgt" data-retter="alle">Alle</button>
+    <button class="filter" data-retter="f">Forret</button>
+    <button class="filter" data-retter="h">Hovedret</button>
+    <button class="filter" data-retter="d">Dessert</button>
+    <button class="filter" data-retter="dr">Drikke</button>
+</nav>
+
+
+<style>
+    nav {
+        flex-direction: row;
+        text-align: center;
+        padding: 20px;
+    }
+
+
+    nav .valgt {
+        background-color: lightgoldenrodyellow;
+    }
+
+
+
+    article {
+        border: 1px solid black;
+        //*background-color: lightcyan;*//
+    }
+
+    img {
+        width: 100%;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        max-width: 1000px;
+        margin: 0 auto;
+        grid-gap: 10px;
+    }
+
+
+    button {
+        border: 1px solid black;
+        width: 5rem;
+        height: 2rem;
+
+    }
+</style>
+
 
 <body>
 
+    <template>
+        <article class="retter">
+            <h2></h2>
+            <p class="id"></p>
+            <p class="forret"></p>
+            <p class="hovedret"></p>
+            <p class="dessert"></p>
+            <p class="drikke"></p>
+            <img src="" alt="">
+        </article>
+    </template>
 
-
-
-
-
-
+    <main></main>
 
 
     <script>
+        const endpoint = "https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json";
+        let retter = [];
+        let filter = "alle";
+        const container = document.querySelector("main");
+        const retterTemplate = document.querySelector("template");
 
 
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            hentData();
+            addEventListnerToButtons();
+        }
+
+        async function hentData() {
+            const response = await fetch(endpoint);
+            console.log(response);
+            retter = await response.json();
+            console.log(retter);
+            visRetter();
+        }
+
+        function visRetter() {
+            container.innerHTML = "";
+            retter.feed.entry.forEach((ret) => {
+                if (filter == "alle" || filter == ret.gsx$ret.$t) {
+                    const klon = retterTemplate.cloneNode(true).content;
+                    klon.querySelector(".id").textContent = ret.gsx$id.$t;
+                    klon.querySelector("h2").textContent = ret.gsx$navn.$t;
+                    klon.querySelector(".forret").textContent = ret.gsx$forret.$t;
+                    klon.querySelector(".hovedret").textContent = ret.gsx$hovedret.$t;
+                    klon.querySelector(".dessert").textContent = ret.gsx$dessert.$t;
+                    klon.querySelector(".drikke").textContent = ret.gsx$drikke.$t;
+
+                    container.appendChild(klon);
+
+                }
+            })
+
+        }
+
+
+        function addEventListnerToButtons() {
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtering);
+            })
+
+        }
+
+
+
+        function filtering() {
+            //console.log("FILTER");
+            filter = this.dataset.ret;
+            document.querySelector("h1").textContent = this.textContent;
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.classList.remove("valgt");
+            })
+            this.classList.add("valgt");
+            visRetter();
+        }
     </script>
-</body>
-
-</html>
+</body></html>
