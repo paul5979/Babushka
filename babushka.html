@@ -7,6 +7,9 @@
     <title>Bistro Babushka</title>
 </head>
 
+
+<section id="bistro"></section>
+
 <nav class="menu">
     <button class="filter valgt" data-retter="alle">Alle</button>
     <button class="filter" data-retter="forretter">Forretter</button>
@@ -15,27 +18,31 @@
     <button class="filter" data-retter="drikkevarer">Drikkevarer</button>
     <button class="filter" data-retter="sideorders">Sideorders</button>
     <h1>Alle</h1>
-
 </nav>
+
+
 
 
 <style>
     nav {
         flex-direction: row;
         text-align: center;
-        padding: 20px;
+
+
     }
 
 
     nav .valgt {
-        background-color: lightgoldenrodyellow;
+        background-color: #131626;
+        border-style: none;
     }
 
 
 
+
     article {
-        border: 1px solid black;
-        //*background-color: lightcyan;*//
+        border: 1px solid wheat;
+        background-color: wheat;
     }
 
     img {
@@ -48,13 +55,54 @@
         max-width: 1000px;
         margin: 0 auto;
         grid-gap: 10px;
+        padding: 1vw;
+        text-align: center;
     }
 
 
     button {
-        border: 1px solid black;
-        width: 5rem;
-        height: 2rem;
+        //*border: 1px solid black;*//
+        width: 6rem;
+        height: 3.5rem;
+        padding: 3px;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Coda Caption', sans-serif;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+
+
+    }
+
+    body {
+        background-color: #D9D0C5;
+    }
+
+    #bistro {
+        width: 100vw;
+        height: 50vh;
+        background-image: url(bistro.svg);
+        background-size: cover;
+        background-position: center;
+        max-width: none;
+
+
+    }
+
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 0.9rem;
+
+
+    }
+
+    h2 {
+        font-family: 'Coda Caption', sans-serif;
+        font-size: 1.2rem;
+        color: #121626;
+        text-transform: uppercase;
+
 
     }
 </style>
