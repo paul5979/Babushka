@@ -128,6 +128,7 @@
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 10;
+        overflow: scroll;
     }
 
 
@@ -142,9 +143,11 @@
 
 
     #mad {
+        width: 50vw;
         margin: 3em;
         padding: 2em;
         background-color: white;
+        margin: 0 auto;
     }
 </style>
 
@@ -168,8 +171,15 @@
     <section id="detalje" class="skjul">
         <button>X</button>
         <article id="mad">
-            <h1>NAVN</h1>
-            <p>Land</p>
+            <h2></h2>
+            <img src="" alt="">
+            <p class="id"></p>
+            <p class="kategori"></p>
+            <p class="pris"></p>
+            <p class="kort"></p>
+            <p class="lang"></p>
+            <p class="oprindelse"></p>
+
         </article>
     </section>
 
@@ -182,6 +192,8 @@
         let filter = "alle";
         const container = document.querySelector("main");
         const menukortTemplate = document.querySelector("template");
+        const detalje = document.querySelector("#detalje");
+
 
 
         document.addEventListener("DOMContentLoaded", start);
@@ -204,20 +216,18 @@
             menukort.feed.entry.forEach((retter) => {
                 if (filter == "alle" || filter == retter.gsx$kategori.$t) {
                     let klon = menukortTemplate.cloneNode(true).content;
-                    //*klon.querySelector(".id").textContent = retter.gsx$id.$t;*//
+                    klon.querySelector(".id").textContent = retter.gsx$id.$t;
                     klon.querySelector("h2").textContent = retter.gsx$navn.$t;
                     //*klon.querySelector(".kategori").textContent = retter.gsx$kategori.$t;*//
-
                     klon.querySelector(".pris").textContent = `Pris: ${retter.gsx$pris.$t},-`;
-
                     klon.querySelector(".kort").textContent = retter.gsx$kort.$t;
-                    //*klon.querySelector(".lang").textContent = retter.gsx$lang.$t;*//
-                    //*klon.querySelector(".oprindelse").textContent = retter.gsx$oprindelse.$t;*//
+                    klon.querySelector(".lang").textContent = retter.gsx$lang.$t;
+                    klon.querySelector(".oprindelse").textContent = retter.gsx$oprindelse.$t;
                     klon.querySelector("img").src = `imgs/small/${retter.gsx$billede.$t}-sm.jpg`;
 
                     klon.querySelector(".retter").addEventListener("click", () => {
-                        visDetalje(retter)
-                    });
+                        visDetalje(retter);
+                    })
 
                     container.appendChild(klon);
 
@@ -227,10 +237,20 @@
         }
 
 
-        function visDetalje(mad) {
+        function visDetalje(retter) {
+            console.log(retter);
             detalje.classList.remove("skjul");
             detalje.querySelector("button").addEventListener("click", () => detalje.classList.add("skjul"));
-            console.log(mad.gsx$navn.$t);
+            console.log(retter.gsx$navn.$t);
+            detalje.querySelector(".id").textContent = retter.gsx$id.$t;
+            detalje.querySelector("h2").textContent = retter.gsx$navn.$t;
+            detalje.querySelector(".kategori").textContent = retter.gsx$kategori.$t;
+            detalje.querySelector(".pris").textContent = `Pris: ${retter.gsx$pris.$t},-`;
+            detalje.querySelector(".kort").textContent = retter.gsx$kort.$t;
+            detalje.querySelector(".lang").textContent = retter.gsx$lang.$t;
+            detalje.querySelector(".oprindelse").textContent = retter.gsx$oprindelse.$t;
+            detalje.querySelector("img").src = `imgs/small/${retter.gsx$billede.$t}-sm.jpg`;
+
         }
 
 
