@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Babushka</title>
+    <style>
+        body {
+            background-color: #121626;
+        }
+
+        img {
+            100%;
+
+        }
+
+        .retter p {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            color: whitesmoke;
+
+        }
+
+
+        .retter h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: whitesmoke;
+            text-transform: uppercase;
+
+
+        }
+
+
+        #detalje button {
+            font-size: 1.5rem;
+            margin: 0.5em;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <section id="detalje">
+        <button id="luk">back</button>
+        <article class="retter">
+            <h2></h2>
+            <img src="" alt="">
+            <p class="id"></p>
+            <p class="kategori"></p>
+            <p class="pris"></p>
+            <p class="kort"></p>
+            <p class="lang"></p>
+            <p class="oprindelse"></p>
+        </article>
+    </section>
+
+
+
+    <script>
+        const Urlparamenter = new URLSearchParams(window.location.search);
+
+        const retId = Urlparamenter.get("id");
+
+        console.log(retId);
+
+        let retter = [];
+
+
+        const detalje = document.querySelector("#detalje");
+
+
+        const endpoint = "https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json";
+
+
+
+        document.addEventListener("DOMContentLoaded", hentData);
+
+
+
+        async function hentData() {
+            const response = await fetch(endpoint);
+            console.log(response);
+            retter = await response.json();
+            visRet();
+
+        }
+
+
+        function visRet() {
+            detalje.querySelector("button").addEventListener("click", () => {
+                history.back();
+            });
+            retter.feed.entry.forEach(ret => {
+                if (ret.gsx$id.$t == retId) {
+
+                    detalje.querySelector("h2").textContent = ret.gsx$navn.$t;
+                    detalje.querySelector(".kategori").textContent = ret.gsx$kategori.$t;
+                    detalje.querySelector(".pris").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+                    detalje.querySelector(".kort").textContent = ret.gsx$kort.$t;
+                    detalje.querySelector(".lang").textContent = ret.gsx$lang.$t;
+                    detalje.querySelector(".oprindelse").textContent = ret.gsx$oprindelse.$t;
+                    detalje.querySelector("img").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
+
+
+                    console.log(ret);
+
+
+
+                }
+
+            })
+        }
+    </script>
+
+</body></html>
