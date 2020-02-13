@@ -8,7 +8,9 @@
 </head>
 
 
-<section id="bistro"></section>
+<section id="bistro">
+    <h1>BISTRO BABUSHKA</h1>
+</section>
 
 <nav class="menu">
     <button class="filter valgt" data-retter="alle">Alle</button>
@@ -17,7 +19,7 @@
     <button class="filter" data-retter="desserter">Desserter</button>
     <button class="filter" data-retter="drikkevarer">Drikkevarer</button>
     <button class="filter" data-retter="sideorders">Sideorders</button>
-    <h1>Alle</h1>
+    <h2>Alle</h2>
 </nav>
 
 
@@ -43,8 +45,8 @@
 
 
     article {
-        border: 1px solid wheat;
-        background-color: wheat;
+        border: 3px solid wheat;
+        //*background-color: wheat;*//
         padding: 20px;
         margin: 6px;
     }
@@ -69,53 +71,57 @@
         padding: 8px;
         border: none;
         align-items: center;
-        font-family: 'Coda Caption', sans-serif;
+        font-family: 'Playfair Display', serif;
         font-size: 1rem;
         background-color: transparent;
         text-transform: uppercase;
         cursor: pointer;
+        color: whitesmoke;
 
 
     }
 
     body {
-        background-color: #D9D0C5;
+        background-color: #121626;
     }
 
-    #bistro {
-        width: 100vw;
-        height: 50vh;
-        background-image: url(bistro.svg);
-        background-size: cover;
-        background-position: center;
-        max-width: none;
-
-
+    #bistro h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 5rem;
+        text-align: center;
     }
+
 
 
     p {
-        font-family: 'Open Sans', sans-serif;
+        font-family: 'Lato', sans-serif;
         font-size: 0.9rem;
+        color: whitesmoke;
+        padding: 3px;
+
+
 
 
     }
 
     h1 {
-        font-family: 'Coda Caption', sans-serif;
+        font-family: 'Playfair Display', serif;
         font-size: 1.5rem;
-        color: #121626;
+        color: whitesmoke;
         text-transform: uppercase;
+
+
 
 
     }
 
 
     h2 {
-        font-family: 'Coda Caption', sans-serif;
+        font-family: 'Playfair Display', serif;
         font-size: 1.2rem;
-        color: #121626;
+        color: whitesmoke;
         text-transform: uppercase;
+        text-align: center;
 
 
     }
@@ -146,8 +152,10 @@
         width: 50vw;
         margin: 3em;
         padding: 2em;
-        background-color: white;
+        background-color: #121626;
         margin: 0 auto;
+        color: whitesmoke;
+
     }
 </style>
 
@@ -266,7 +274,7 @@
         function filtering() {
             console.log("FILTER");
             filter = this.dataset.retter;
-            document.querySelector("h1").textContent = this.textContent;
+            document.querySelector("h2").textContent = this.textContent;
             document.querySelectorAll(".filter").forEach(elm => {
                 elm.classList.remove("valgt");
             })
